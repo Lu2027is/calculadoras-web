@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mini-Tools Hub: Calculadoras</title>
+    <style>
+        :root {
+            --primary-color: #6366f1;
+            --primary-hover: #4f46e5;
+            --bg-color: #f3f4f6;
+            --card-bg: #ffffff;
+            --text-color: #1f2937;
+            --gray-text: #6b7280;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 2rem 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--text-color);
+        }
+
+        .hub-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            width: 100%;
+            max-width: 1100px;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        h2 {
+            font-size: 1.25rem;
+            margin-top: 0;
+            margin-bottom: 1.25rem;
+            color: var(--primary-color);
+            border-bottom: 2px solid #e5e7eb;
+            padding-bottom: 0.5rem;
+        }
+
+        .input-group {
+            margin-bottom: 1rem;
+        }
+
+        label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 0.35rem;
+            color: var(--text-color);
+        }
+
+        input, select {
+            width: 100%;
+            padding: 0.65rem;
+            border: 1px solid #d1d5db;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            box-sizing: border-box;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        input:focus, select:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+
+        button {
+            width: 100%;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            margin-top: 0.5rem;
+        }
+
+        button:hover {
+            background-color: var(--primary-hover);
+        }
+
+        .result {
+            margin-top: 1.25rem;
+            padding-top: 1rem;
+            border-top: 1px solid #e5e7eb;
+            font-size: 1.1rem;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .result span {
+            color: var(--primary-color);
+        }
+    </style>
+</head>
+<body>
+
+    <h1>🚀 Mini-Tools Hub</h1>
+
+    <div class="hub-container">
+
+        <!-- 1. Calculadora Básica (Multiplicação, Divisão, Soma, Subtração) -->
+        <div class="card">
+            <div>
+                <h2>Calculadora Básica</h2>
+                <div class="input-group">
+                    <label for="num1">Primeiro Número</label>
+                    <input type="number" id="num1" placeholder="0">
+                </div>
+                <div class="input-group">
+                    <label for="operacao">Operação</label>
+                    <select id="operacao">
+                        <option value="somar">Somar (+)</option>
+                        <option value="subtrair">Subtrair (-)</option>
+                        <option value="multiplicar">Multiplicar (×)</option>
+                        <option value="dividir">Dividir (÷)</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="num2">Segundo Número</label>
+                    <input type="number" id="num2" placeholder="0">
+                </div>
+            </div>
+            <div>
+                <button onclick="calcularBasica()">Calcular</button>
+                <div class="result" id="resBasica">Resultado: <span>0</span></div>
+            </div>
+        </div>
+
+        <!-- 2. Divisor de Contas -->
+        <div class="card">
+            <div>
+                <h2>Divisor de Contas</h2>
+                <div class="input-group">
+                    <label for="bill">Valor Total (€)</label>
+                    <input type="number" id="bill" placeholder="0.00" step="0.01" min="0">
+                </div>
+                <div class="input-group">
+                    <label for="tip">Gorjeta (%)</label>
+                    <input type="number" id="tip" value="10" min="0">
+                </div>
+                <div class="input-group">
+                    <label for="people">Nº de Pessoas</label>
+                    <input type="number" id="people" value="1" min="1">
+                </div>
+            </div>
+            <div>
+                <button onclick="calcularConta()">Calcular Conta</button>
+                <div class="result" id="resConta">Total por Pessoa: <span>0.00 €</span></div>
+            </div>
+        </div>
+
+        <!-- 3. Calculadora de Notas Escolares -->
+        <div class="card">
+            <div>
+                <h2>Média Escolar</h2>
+                <div class="input-group">
+                    <label for="nota1">Nota 1 (0 a 20)</label>
+                    <input type="number" id="nota1" placeholder="0" min="0" max="20" step="0.1">
+                </div>
+                <div class="input-group">
+                    <label for="nota2">Nota 2 (0 a 20)</label>
+                    <input type="number" id="nota2" placeholder="0" min="0" max="20" step="0.1">
+                </div>
+                <div class="input-group">
+                    <label for="nota3">Nota 3 (0 a 20)</label>
+                    <input type="number" id="nota3" placeholder="0" min="0" max="20" step="0.1">
+                </div>
+            </div>
+            <div>
+                <button onclick="calcularNotas()">Calcular Média</button>
+                <div class="result" id="resNotas">Média: <span>0.0</span></div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // Lógica da Calculadora Básica (com soma, subtração, multiplicação e divisão)
+        function calcularBasica() {
+            const n1 = parseFloat(document.getElementById('num1').value) || 0;
+            const n2 = parseFloat(document.getElementById('num2').value) || 0;
+            const op = document.getElementById('operacao').value;
+            let resultado = 0;
+
+            if (op === 'somar') resultado = n1 + n2;
+            else if (op === 'subtrair') resultado = n1 - n2;
+            else if (op === 'multiplicar') resultado = n1 * n2;
+            else if (op === 'dividir') {
+                if (n2 === 0) {
+                    alert("Não é possível dividir por zero!");
+                    return;
+                }
+                resultado = n1 / n2;
+            }
+
+            document.getElementById('resBasica').innerHTML = `Resultado: <span>${resultado.toFixed(2)}</span>`;
+        }
+
+        // Lógica do Divisor de Contas
+        function calcularConta() {
+            const bill = parseFloat(document.getElementById('bill').value) || 0;
+            const tipPercentage = parseFloat(document.getElementById('tip').value) || 0;
+            const people = parseInt(document.getElementById('people').value) || 1;
+
+            if (people <= 0 || bill < 0) {
+                alert("Por favor, insere valores válidos.");
+                return;
+            }
+
+            const totalBill = bill + (bill * (tipPercentage / 100));
+            const resultPerPerson = totalBill / people;
+
+            document.getElementById('resConta').innerHTML = `Total por Pessoa: <span>${resultPerPerson.toFixed(2)} €</span>`;
+        }
+
+        // Lógica da Média Escolar
+        function calcularNotas() {
+            const n1 = parseFloat(document.getElementById('nota1').value) || 0;
+            const n2 = parseFloat(document.getElementById('nota2').value) || 0;
+            const n3 = parseFloat(document.getElementById('nota3').value) || 0;
+
+            const media = (n1 + n2 + n3) / 3;
+            let status = media >= 9.5 ? "Aprovado 🎉" : "Abaixo da média ⚠️";
+
+            document.getElementById('resNotas').innerHTML = `Média: <span>${media.toFixed(1)} (${status})</span>`;
+        }
+    </script>
+
+</body>
+</html>
